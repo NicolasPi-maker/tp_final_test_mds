@@ -1,6 +1,10 @@
-import {describe, expect, it} from "vitest";
-import { getDiceScoreCombinations, isDiceCombinationsAreEquals } from "../modules/coba.ts";
+import {describe, expect, it, test} from "vitest";
+import { getDiceScoreCombinations, isDiceCombinationsAreEquals, findSolution } from "../modules/coba.ts";
 
+/**
+ * L'implémentation n'a pas encore été faite
+ * Aucun test ne passe pour le moment
+*/
 describe('found Coba dice problem solution', () => {
     describe('Should return dice value for one face in normal case', () => {
         it('should return the value of the green dice', () => {
@@ -40,7 +44,7 @@ describe('found Coba dice problem solution', () => {
             });
         });
         describe('pink power conditions', () => {
-           it('should set other dices values to 0 when pink is present', () => {
+           it('should set dice value to 0 of the lowest dice value when pink is present', () => {
               expect(getDiceScoreCombinations(['green', 'pink', 'green'])).toBe((1 - 1) + (1 - 1) + 3);
            });
            it('two pink dices have no effect', () => {
@@ -50,7 +54,7 @@ describe('found Coba dice problem solution', () => {
              expect(getDiceScoreCombinations(['green', 'pink', 'pink'])).toBe((1 - 1) + 3 + 3);
           });
           it('yellow dice value should be 0 when pink dice is present', () => {
-                expect(getDiceScoreCombinations(['yellow', 'pink'])).toBe(-(1 - 1) + 3);
+                expect(getDiceScoreCombinations(['yellow', 'pink', 'gray'])).toBe(-(1 - 1) + 2 + 3);
           });
         });
         describe('blue power conditions', () => {
@@ -72,14 +76,49 @@ describe('found Coba dice problem solution', () => {
         });
     });
 
-    const datas = []
+    const data = [
+        [
+            ['green', 'green', 'gray', 'green', 'green', 'green', 'green'],
+            [
+                ['green', 'green', 'gray'],
+                ['green', 'green', 'green','green'],
+            ]
+        ],
+        [
+            ['gray', 'gray', 'gray', 'gray', 'green', 'orange', 'green'],
+            [
+                ['gray', 'gray', 'gray'],
+                ['green', 'orange', 'green', 'gray'],
+            ]
+        ],
+        [
+            ['gray', 'gray', 'gray', 'gray', 'orange', 'orange', 'yellow'],
+            [
+                ['gray', 'gray', 'orange', 'yellow'],
+                ['orange', 'orange', 'gray'],
+            ]
+        ],
+        [
+            ['green', 'green', 'green', 'green', 'blue', 'gray', 'gray'],
+            [
+                ['green', 'green', 'blue'],
+                ['green', 'green', 'gray', 'gray'],
+            ]
+        ],
+        [
+            ['gray', 'gray', 'gray', 'pink', 'green', 'yellow', 'green'],
+            [
+                ['gray', 'gray', 'pink'],
+                ['green', 'yellow', 'green', 'gray'],
+            ]
+        ],
+    ]
 
-
-    // const combinations = [[1, 2], [1, 3], [2, 3]];
-    // it.each(combinations)(
-    //     '.add(%i, %i)',
-    //     (a, b, expected) => {
-    //         expect(a + b).toBe(expected);
-    //     },
-    // );
+    describe('Oda', () => {
+        describe('Solutions', () => {
+            test.each(data)('Problem %# for %p', (input, solution) => {
+                expect(findSolution(input)).toEqual(solution)
+            })
+        });
+    });
 });

@@ -119,7 +119,7 @@ describe('found Coba dice problem solution', () => {
         ],
     ]
 
-    describe('Oda', () => {
+    describe('Coba', () => {
         describe('Solutions', () => {
             test.each(data)('Problem %# for %p', (input, solution) => {
                 expect(findSolution(input)).toEqual(solution)

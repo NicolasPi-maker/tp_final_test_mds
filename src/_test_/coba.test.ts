@@ -76,10 +76,15 @@ describe('found Coba dice problem solution', () => {
         });
     });
 
+    /**
+     * Données de test contenant la solution pour éffectuer des tests batch
+     */
     const data = [
         [
+            /** Ensemble des dés */
             ['green', 'green', 'gray', 'green', 'green', 'green', 'green'],
             [
+                /** Solution */
                 ['green', 'green', 'gray'],
                 ['green', 'green', 'green','green'],
             ]
